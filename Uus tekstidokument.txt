@@ -1,6 +1,6 @@
 andmebaas - AB
 andmebaaside haldus -
-andmebaasi haldussüsteem ABHS - sistema upravlenie s basa danami
+andmebaasi haldussüsteem ABHS - sistema upravlenie s basa danami (SQL Server /XAMPP /Oracle / MS Access)
 andmed - 
 tabel -
 veerg = väli
@@ -9,3 +9,9 @@ päring (query) -
 loo -
 laadi alla - ckachat
 laadi üles - zatochit
+rakendus - 
+varundamine - 
+taastamine - 
+päringukeel - jazik zaprosa
+relatsiooni andmebaas - otnoshenie s baza dannami
+seos - svaz
