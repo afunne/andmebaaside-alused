@@ -1,0 +1,11 @@
+andmebaas - AB
+andmebaaside haldus -
+andmebaasi haldussüsteem ABHS - sistema upravlenie s basa danami
+andmed - 
+tabel -
+veerg = väli
+rida = kirje
+päring (query) - 
+loo -
+laadi alla - ckachat
+laadi üles - zatochit
