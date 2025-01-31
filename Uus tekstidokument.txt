@@ -1,17 +1,17 @@
 andmebaas - AB
 andmebaaside haldus -
 andmebaasi haldussüsteem ABHS - sistema upravlenie s basa danami (SQL Server /XAMPP /Oracle / MS Access)
-andmed - 
-tabel -
-veerg = väli
-rida = kirje
+andmed - dannie
+tabel - Таблица
+veerg = väli - колонка 
+rida = kirje - строка
 päring (query) - 
-loo -
+loo - sosdat
 laadi alla - ckachat
 laadi üles - zatochit
-rakendus - 
-varundamine - 
-taastamine - 
+rakendus - приложение
+varundamine - резервное копирование
+taastamine - восстановление
 päringukeel - jazik zaprosa
 relatsiooni andmebaas - otnoshenie s baza dannami
 seos - svaz
