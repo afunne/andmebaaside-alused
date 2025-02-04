@@ -97,4 +97,8 @@ SELECT * from linn;
 END;
 
 
+BEGIN
+SELECT * from linn
+WHERE linnNimi LIKE CONCAT(@taht, '%');
+END;
 
