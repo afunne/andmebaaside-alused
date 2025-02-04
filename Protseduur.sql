@@ -75,6 +75,28 @@ END;
 --kutse
 EXEC linnaOtsing T;
 
+--tabeli uuendamine + rahvaavr kasvab 10 % värra
+UPDATE linn SET rahvaArv=rahvaArv*1.1
+SELECT * FROM linn;
+UPDATE linn SET rahvaArv=rahvaArv*1.1
+WHERE LinnId=2;
+
+CREATE PROCEDURE rahvaArvuUuendus
+@linnID int,
+@koef decimal(2,1)
+AS
+BEGIN
+SELECT * FROM linn
+UPDATE linn SET rahvaArv=rahvaArv*@koef
+WHERE LinnId=LinnId;
+select * from linn;
+END;
+
+--destroying everything >:3
+DROP PROCEDURE rahvaArvuUuendus;
+
+EXEC rahvaArvuUuendus 7, 1.2;
+
 -----------------------------------------------------
 Kasutama XAMPP/localhost
 
@@ -102,3 +124,10 @@ SELECT * from linn
 WHERE linnNimi LIKE CONCAT(@taht, '%');
 END;
 
+
+BEGIN
+SELECT * FROM linn;
+UPDATE linn SET rahvaArv=rahvaArv*koef
+WHERE LinnId=id;
+select * from linn;
+END
