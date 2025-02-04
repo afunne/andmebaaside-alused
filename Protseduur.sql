@@ -77,3 +77,16 @@ EXEC linnaOtsing T;
 
 -----------------------------------------------------
 Kasutama XAMPP/localhost
+
+Create table linn(
+LinnId int Primary Key AUTO_INCREMENT,
+LinnNimi varchar(30),
+rahvaArv int);
+
+Insert into linn(LinnNimi, rahvaArv)
+values ('Tallinn', 60000);
+
+CREATE PROCEDURE `lisaLinn`(IN `lnimi` VARCHAR(30), IN `rArv` INT) NOT DETERMINISTIC CONTAINS SQL SQL SECURITY DEFINER BEGIN Insert into linn(LinnNimi, rahvaArv) values (lnimi, rArv); SELECT * from linn; END;
+
+
+
