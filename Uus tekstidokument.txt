@@ -1,6 +1,6 @@
 andmebaas - AB
-andmebaaside haldus -
-andmebaasi haldussüsteem ABHS - sistema upravlenie s basa danami (SQL Server /XAMPP /Oracle / MS Access)
+andmebaaside haldus - управление базой данных
+andmebaasi haldussüsteem ABHS - система управления базами данных (SQL Server /XAMPP /Oracle / MS Access)
 andmed - dannie
 tabel - Таблица
 veerg = väli - колонка 
