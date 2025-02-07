@@ -5,7 +5,7 @@ andmed - dannie
 tabel - Таблица
 veerg = väli - колонка 
 rida = kirje - строка
-päring (query) - 
+päring (query) - запрос
 loo - sosdat
 laadi alla - ckachat
 laadi üles - zatochit
