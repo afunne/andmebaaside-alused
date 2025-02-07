@@ -19,7 +19,7 @@ SELECT * from linn
 END;
 
 --protseduuri kutse
-EXEC lisalinn @lnimi = 'Tartu', @rArv=1256
+EXEC lisalinn @lnimi = 'Megalinn', @rArv=999
 
 -- uue veeru lisamine
 ALTER TABLE linn ADD test int;
@@ -80,3 +80,27 @@ EXEC veerulisaKustutaTabelis @valik='drop', @tabelinimi='linn', @veerunimi = 'te
 SELECT * FROM linn;
 
 --protseduur tingimusega
+Create procedure rahvaHinnang
+
+
+AS
+BEGIN
+SELECT linnNimi, rahvaArv, IIF(rahvaArv<1000, 'väike linn', 'suur linn') as hinnang
+FROM linn;
+
+END;
+
+DROP procedure rahvaHinnang;
+
+EXEC rahvaHinnang 2000;
+--Agregaat funktsioonid: SUM(), AVG(), MIN(), MAX(), COUNT()
+
+CREATE PROCEDURE kokkuRahvaarv
+
+AS
+BEGIN
+SELECT SUM(rahvaArv) AS 'kokku rahvaArv', AVG(rahvaArv) AS 'keskimine rahvaArv', count(*) AS 'linnade arv'
+FROM linn;
+END;
+
+EXEC kokkuRahvaarv;
