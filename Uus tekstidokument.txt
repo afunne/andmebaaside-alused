@@ -15,3 +15,37 @@ taastamine - восстановление
 päringukeel - jazik zaprosa
 relatsiooni andmebaas - otnoshenie s baza dannami
 seos - svaz
+
+>cd desktop - to go somewhere
+<cd .. - to go back
+
+--(for my own sanity) first we register ourselfs amd check with the last line of command
+<c: - if we want to go into the disk
+git config --global user.name "HusseinTahmazov"
+git config -- global user.email "tahmazovhussejn@gmail.com"
+git config --global --list
+
+-- (cloning the whole thing)
+C:\Users\opilane\Desktop>git clone git@github.com:IrinaMerkulova/TARpv24andmebaasTerms.git
+
+C:\Users\opilane\Desktop\TARpv24andmebaasTerms>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean
+
+C:\Users\opilane\Desktop\TARpv24andmebaasTerms>
+
+git branch Hussein
+
+-- (pew, pew GO!)
+git push --set-upstream origin Hussein
+
+-------------------------
+git add .
+git commit -a -m "Põhimõisted on tõlgitud"
+git status
+git push
+-------------------------
+
+
