@@ -129,3 +129,139 @@ select * from yhik;
 select * from Toiduaine
 select * from Kasutaja;
 select * from tehtud;
+
+------------- uus ülasane -------------
+create procedure AddKasutaja
+@enimi varchar(50),
+@pnimi varchar(50),
+@mail varchar(150)
+AS
+BEGIN
+Insert into Kasutaja(eesnimi, perenimi, email)
+values (@enimi, @pnimi, @mail);
+SELECT * from kasutaja
+
+END;
+
+exec AddKasutaja @enimi='Alan', @pnimi='Iranium', @mail='omegamail@gmail.ee'
+
+create procedure AddRetsept
+@Rnimi varchar(100),
+@Kir varchar(200),
+@Juh varchar(500),
+@sise_kp date,
+@kas int,
+@kat_id int
+AS
+BEGIN
+Insert into Retsept(retsepti_nimi, kirjeldus, juhtend, sisestatud_kp, kasutaja, kategooria_id)
+values (@Rnimi, @Kir, @Juh, @sise_kp, @kas, @kat_id);
+SELECT * from kasutaja
+END;
+
+exec AddRetsept @Rnimi='PastaV2UltraKill', @Kir='keeta makaroonid', @Juh='kasutaja elekripliit', @sise_kp='2025-06-17', @kas=6, @kat_id=6
+
+create procedure UusKoostis
+@rets_rets_id int,
+@kog int,
+@yhik int,
+@yhik_id int,
+@toid_id int
+as
+begin
+insert into koostis(koogus, yhik, retsept_retsept_id, toiduaine_id, yhik_id)
+values (@rets_rets_id, @kog, @yhik, @yhik_id, @toid_id)
+select * from koostis
+
+end;
+
+exec UusKoostis @rets_rets_id=6, @kog=34, @yhik =1, @yhik_id = 5, @toid_id = 6
+
+select * from koostis;
+
+
+
+CREATE PROCEDURE veerulisaKustutaTabelis
+@valik varchar(20),
+@tabelinimi varchar(20),
+@veerunimi varchar(20),
+@tyyp varchar(20)=null
+
+AS
+BEGIN
+Declare @sqltegevus as varchar(max)
+set @sqltegevus = case
+when @valik='add' then concat('ALTER TABLE ', @tabelinimi, '  ADD  ',    @veerunimi, ' ', @tyyp)
+when @valik='drop' then concat('ALTER TABLE ', @tabelinimi, '  DROP COLUMN  ',    @veerunimi)
+END;
+print @sqltegevus;
+begin
+EXEC (@sqltegevus);
+END
+END;
+
+EXEC veerulisaKustutaTabelis @valik='add', @tabelinimi='koostis', @veerunimi = 'test' ,@tyyp='int';
+SELECT *FROM koostis;
+
+EXEC veerulisaKustutaTabelis @valik='drop', @tabelinimi='koostis', @veerunimi = 'test';
+SELECT * FROM koostis;
+
+
+
+-----------
+EXEC veerulisaKustutaTabelis @valik='add', @tabelinimi='Retsept', @veerunimi = 'Retsept' ,@tyyp='int';
+SELECT *FROM koostis;
+
+EXEC veerulisaKustutaTabelis @valik='drop', @tabelinimi='Retsept', @veerunimi = 'test';
+SELECT * FROM koostis;
+-----------
+
+
+
+EXEC veerulisaKustutaTabelis @valik='add', @tabelinimi='tehtud', @veerunimi = 'test' ,@tyyp='int';
+SELECT *FROM koostis;
+
+EXEC veerulisaKustutaTabelis @valik='drop', @tabelinimi='tehtud', @veerunimi = 'test';
+SELECT * FROM koostis;
+
+----- Ülasane 2 --------
+create table MidaNadValmistasid(
+toid_id int primary key identity(1,1),
+toid_nimi varchar(50),
+kasutaja_nimi varchar(50),
+number int)
+
+drop table MidaNadValmistasid
+
+select * from MidaNadValmistasid;
+
+insert into MidaNadValmistasid(toid_nimi, kasutaja_nimi, number)
+values ('PastaSuper', 'Evrika', 7);
+
+CREATE PROCEDURE lisaMidaNadValmistasid
+@toidN varchar(50),
+@Knimi varchar(50),
+@number int
+AS
+BEGIN
+Insert into MidaNadValmistasid(toid_nimi, kasutaja_nimi, number)
+values (@toidN, @Knimi, @number);
+SELECT * from MidaNadValmistasid
+
+END;
+
+
+exec lisaMidaNadValmistasid @toidN=OBApasta, @Knimi=Opastal, @number=8
+
+
+CREATE PROCEDURE Lisaidis
+@deleteID int
+AS
+BEGIN
+SELECT * from MidaNadValmistasid;
+DELETE FROM MidaNadValmistasid WHERE toid_id=2;
+SELECT * from MidaNadValmistasid;
+
+END;
+
+exec Lisaidis 2
