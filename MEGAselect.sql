@@ -121,7 +121,7 @@ ORDER BY stip;
 --kahanevas järjekorras - убывание - DESC - suurimast --> väikseni, Z-->A
 select opilaneID, eesnimi, perenimi
 from opilane
-ORDER BY stip DESC;
+ORDER BY stip;
 
 --kuva eesnimi, mis on sorteeritud kahanevas järjekorras
 select eesnimi
@@ -180,9 +180,137 @@ Order by stip
 -- eesnimied sisaldavad T ja stip (60;70)
 select eesnimi, stip
 from opilane
-where eesnimi like 'T%' and  stip between 60 and 70
+where eesnimi like '%t%' and  stip between 60 and 70
 
--- eesnimied sisaldavad A ja stip (60;70)    (T nimedes pole stip surem kui 60,  :P   )
-select eesnimi, stip
-from opilane
-where eesnimi like 'A%' and  stip between 60 and 70
+
+--- ülisandet
+create table AutoList(Mark varchar(100),
+RegNr varchar(100) Primary key,
+Aasta int,
+RegPiirk int
+);
+
+select * from AutoList
+
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('Audi', '123 ABC', 2000, 1),
+('Ford', '777 AAA', 1988, 2),
+('Ford', 'FIN 772', 2002, 1),
+('Nissan', '111 CCC', 2006, 1),
+('Toyota', '128 HGF', 2003, 1),
+('VAZ', '544 CCH', 1960, 2);
+
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('Audi', '123 ABC', 2000, 1);
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('Ford', '777 AAA', 1988, 2);
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('Ford', 'FIN 772', 2002, 1);
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('Nissan', '111 CCC', 2006, 1);
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('Toyota', '128 HGF', 2003, 1);
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values('VAZ', '544 CCH', 1960, 2);
+
+
+DROP table AutoList;
+
+
+
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Mercedes-Benz', '#3a925b', 2007, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Ford', '#88c7e4', 2005, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('BMW', '#17711b', 1993, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Kia', '#c7f263', 2000, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('GMC', '#16d0fa', 2012, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('BMW', '#60ed78', 2011, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Dodge', '#a77a6a', 1993, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Ram', '#34ea37', 2012, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Mazda', '#23159d', 1994, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Volkswagen', '#8c217a', 1989, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Mercedes-Benz', '#c79bd0', 1992, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Land Rover', '#9af317', 1996, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Mazda', '#42d18f', 2009, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Volkswagen', '#da3a5a', 1995, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Chevrolet', '#690f14', 2008, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Mercedes-Benz', '#a0e33e', 2011, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Infiniti', '#352ac7', 2000, 2);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Buick', '#6d9d4b', 1988, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('GMC', '#9b354c', 1995, 1);
+insert into AutoList (Mark, RegNr, Aasta, RegPiirk) values ('Suzuki', '#2366ab', 1989, 2);
+
+
+select MIN(Aasta) as '´Minimum'
+FROM AutoList;
+--1960
+
+select MAX(Aasta) as '´Minimum'
+FROM AutoList;
+--2012
+
+
+select Mark, Aasta
+from AutoList
+WHERE Aasta BETWEEN 1960 and 2012
+ORDER by Mark
+
+---Esimene ülasane
+select Mark, Aasta
+from AutoList
+ORDER BY Aasta DESC;
+
+--Teine ülasane
+select distinct Mark
+from AutoList
+
+-- kolmas ülasane
+select Mark, Aasta
+from AutoList
+WHERE Aasta < 1993
+
+-- nelijas ülasane
+select Mark
+from AutoList
+Order by Mark;
+
+-- viias ülasane
+select MIN(Aasta) as '´Minimum'
+FROM AutoList;
+
+-- kuues ülasane
+Delete from Autolist
+Where RegNr = '#23159d'
+
+insert into AutoList(Mark, RegNr, Aasta, RegPiirk) values ('BMW', '333 FAQ', 2007, 1);
+
+Select Mark, RegNr, Aasta, RegPiirk
+from AutoList
+where RegNr = '333 FAQ'
+
+-- seitsmes ülisane
+Delete from Autolist
+Where RegNr = '#23159d'
+
+-- kaheksas ülisane
+CREATE PROCEDURE ImSoTireIAintDoingItByMySlefBruh
+@Mark varchar(100),
+@Reg varchar(100),
+@Aasta int,
+@RegPiirk int
+AS
+BEGIN
+INSERT INTO AutoList(Mark, RegNr, Aasta, RegPiirk)
+values (@Mark, @Reg, @Aasta, @RegPiirk);
+SELECT * from AutoList
+
+END
+
+exec ImSoTireIAintDoingItByMySlefBruh  @Mark= 'Nissan', @Reg ='555 NNN', @Aasta = 2007, @RegPiirk = 2 
+
+select Mark, RegNr, Aasta, RegPiirk
+from AutoList
+where Mark like 'BMW'
+
+SELECT top 10 Mark, Aasta
+from AutoList
+Order by Aasta
