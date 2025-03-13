@@ -57,3 +57,55 @@ lehekülgede INT PRIMARY KEY IDENTITY(1, 1),
 lehekülgede_arv varchar(40),
 Teose_ID varchar(60)
 );
+
+--fixing some stuff
+CREATE DATABASE RaamatJaAutorid;
+USE RaamatJaAutorid;
+
+-- Create Autorid table
+CREATE TABLE Autorid(
+    Autori_ID INT PRIMARY KEY IDENTITY(1,1),
+    Eesnimi VARCHAR(40),
+    Perenimi VARCHAR(40),
+    Sünniaasta DATE,
+    Sünnikoht VARCHAR(40),
+    Rahvus VARCHAR(40),
+    Elukoht VARCHAR(40),
+    CV BIT,
+    Potree VARCHAR(40),
+    kodulehekülg VARCHAR(40)
+);
+
+-- Create Teose_liik table
+CREATE TABLE Teose_liik(
+    Liigi_ID INT PRIMARY KEY IDENTITY(1,1),
+    Selgitav_text VARCHAR(40)
+);
+
+-- Create Teosed table
+CREATE TABLE Teosed(
+    Teose_ID INT PRIMARY KEY IDENTITY(1,1),
+    Pealkiri VARCHAR(40),
+    Ilmumiskoht VARCHAR(60),
+    Ilmimistaasta DATE,
+    Lk VARBINARY(MAX),
+    Liigi_ID INT,
+    Kirjatus VARCHAR(30),
+    FOREIGN KEY (Liigi_ID) REFERENCES Teose_liik(Liigi_ID)
+);
+
+-- Create Autoklus table
+CREATE TABLE Autoklus(
+    Teose_ID INT,
+    Autori_ID INT,
+    FOREIGN KEY (Teose_ID) REFERENCES Teosed(Teose_ID),
+    FOREIGN KEY (Autori_ID) REFERENCES Autorid(Autori_ID)
+);
+
+-- Create mitu_lehekülgede table
+CREATE TABLE mitu_lehekülgede(
+    lehekülgede INT PRIMARY KEY IDENTITY(1, 1),
+    lehekülgede_arv VARCHAR(40),
+    Teose_ID INT,
+    FOREIGN KEY (Teose_ID) REFERENCES Teosed(Teose_ID)
+);
