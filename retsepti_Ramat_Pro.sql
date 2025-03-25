@@ -18,7 +18,7 @@ values ('Igor','Pandavich','Megaemail@gmail.ee'),
 create table kategooria(kategooria_id int primary key identity(1,1),
 kategooria_nimi varchar(50));
 
-insert into kategooria
+insert into kategooria(kategooria_nimi)
 values ('supid'),
 ('munad'),
 ('jöökid'),
@@ -31,7 +31,7 @@ tuiduaine_nimi varchar(100));
 
 select * from Toiduaine
 
-insert into Toiduaine
+insert into Toiduaine(tuiduaine_nimi)
 values ('juust'),
 ('sool'),
 ('piim'),
@@ -44,7 +44,7 @@ yhik_nimi varchar(100));
 
 select * from yhik 
 
-insert into yhik
+insert into yhik(yhik_nimi)
 values ('ml'),
 ('tl'),
 ('sl'),
