@@ -102,3 +102,54 @@ select * from tundiplaan
 
 -- End of file.
 
+create database imoofingmyself
+
+use imoofingmyself
+
+drop database imoofingmyself
+
+-- Teachers
+CREATE TABLE Teachers (
+    TeacherID INT IDENTITY(1,1) PRIMARY KEY,
+    "Name" VARCHAR(100)
+);
+
+-- Subjects
+CREATE TABLE Subjects (
+    SubjectID INT PRIMARY KEY,
+    SubjectName VARCHAR(100)
+);
+
+-- Groups
+CREATE TABLE Groups (
+    GroupID INT PRIMARY KEY,
+    GroupName VARCHAR(50)
+);
+
+-- Rooms
+CREATE TABLE Rooms (
+    RoomID INT PRIMARY KEY,
+    RoomName VARCHAR(50)
+);
+
+-- Schedule
+CREATE TABLE Schedule (
+    ScheduleID INT PRIMARY KEY,
+    TeacherID INT,
+    GroupID INT,
+    Day VARCHAR(20),
+    LessonNum INT,
+    RoomID INT,
+    SubjectID INT,
+    FOREIGN KEY (TeacherID) REFERENCES Teachers(TeacherID),
+    FOREIGN KEY (GroupID) REFERENCES Groups(GroupID),
+    FOREIGN KEY (RoomID) REFERENCES Rooms(RoomID),
+    FOREIGN KEY (SubjectID) REFERENCES Subjects(SubjectID)
+);
+
+INSERT INTO Teachers ("Name") VALUES('Marina Oleinik'),('Irina Merkulova'),('Julia Kartusinski');
+INSERT INTO Subjects (SubjectName) VALUES('Andmebaaside alused'),('Kontoritöö tarkvara'),('Andmebaaside haldus'),
+('Operatsioonisüsteemide alused'),('Arvutiõpetus');
+INSERT INTO Groups (GroupName) VALUES('TARpv19'),('LOGITpv18'),('TARpv20');
+INSERT INTO Rooms (RoomName) VALUES('E10'),('A-109'),('A-102'),('A-104');
+
