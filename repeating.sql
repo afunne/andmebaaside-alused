@@ -135,7 +135,7 @@ create view toode_kaibemaksuga as
 select toodenimetus,
 hind,
 cast((hind * 0.24) as decimal(5,2)) as 'kaibemaks',
-cast((hind * 1,24) as decimal(5,2)) as 'hind_kaibimaksa'
+cast((hind * 1.24) as decimal(5,2)) as 'hind_kaibimaksa'
 
 from toode
 
@@ -169,10 +169,15 @@ begin
 select * from toode;
 update toode set hind=@hind
 where toodeID=@toodeID
-select * from toode;
 end;
+drop procedure uuendmine_hind
 
-exec uuendmine_hind @hind = 4, @toodeID = 3;
+exec uuendmine_hind @hind = 8.00, @toodeID = 3;
+
+update toode set hind = 6
+WHERE toodeID = 4
+
+select * from toode
 
 -- Loo protseduur, mis kustutab toote ID järgi.
 
@@ -197,3 +202,95 @@ from toode t
 inner join toodeKategooria tk on t.toodeKategooriaID=tk.toodeKategooriaID
 where tk.toodekategooria = @kategooria
 end;
+
+-- Loo protseduur, mis tõstab kõigi toodete hindu kindlas kategoorias kindla protsendi võrra.
+create procedure Inflation
+@kategooriaID int
+as
+begin
+select * from toode
+update toode
+set hind = hind * (1.15)
+where toodeKategooriaID = @kategooriaID
+select * from toode
+end;
+
+-- Loo protseduur, mis kuvab kõige kallima toote kogu andmebaasis.
+
+create procedure KallimHind
+as
+begin
+select top 1 *
+from toode
+order by hind desc
+end;
+
+exec KallimHind
+
+-- kasutajad
+grant insert, update, delete on toode to tootehaldur;
+
+grant INSERT, UPDATE, SELECT on toodeKategooria to kataloogihaldur;
+
+deny INSERT, UPDATE, SELECT on toode to kataloogihaldur;
+
+grant SELECT on toode to vaataja;
+
+select
+CONCAT(table_schema, '.', table_name) as scope,
+grantee,
+privilege_type
+from INFORMATION_SCHEMA.TABLE_PRIVILEGES
+
+-- union
+select toodeNimetus, hind
+from toode
+where hind > (select avg(hind) from toode)
+union 
+select toodeNimetus, hind from toode 
+where hind < 1;
+
+select toodeNimetus as Nimi_voi_Kategooria,
+'Toode' as Tüüp 
+from toode 
+union 
+select toodekategooria, 'Kategooria'from toodeKategooria;
+
+-- transaction
+begin tran;
+
+update toode
+set hind = hind * 1.10;
+
+if exists (select 1 from toode where hind > 1000)
+begin
+    rollback tran;
+end
+else
+begin
+    commit tran;
+end
+select * from toode
+-- 2
+begin tran;
+begin try insert into toodeKategooria(toodekategooria)
+values ('elektroonika');
+insert into toode(toodeNimetus, hind, toodeKategooriaID)
+values ('Nintendo switch',299, scope_identity());
+commit tran; 
+end try begin catch
+rollback tran;
+end catch;
+
+select * from toode
+
+
+alter table toodeadd aktiivne bit default 1;
+update toode set aktiivne = 0 where toodeNimetus = 'skidatels';
+
+create view aktiivsed_tooded
+as select toodeNimetus, hind 
+from toode 
+where aktiivne = 1;
+
+select * from aktiivsed_tooded
